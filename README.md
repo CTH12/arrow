@@ -1,10 +1,14 @@
 # arrow
 
-base web project.
+drupal sub-theme starter, based on Zurb Foundation's sub-theme starter
 **requires node, grunt, and bower**
 
+Zurb Foundation Drupal theme: https://www.drupal.org/project/zurb_foundation
+
+
+
 ```
-[arrow]$ npm install
+$ npm install
 ```
 
 In a seperate tab run a Python server
