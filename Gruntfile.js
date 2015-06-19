@@ -12,15 +12,15 @@ module.exports = function(grunt) {
         images_dir: 'images/',
         jade_dir: 'jade/',
         js_files: [
-            'js/init.js',
+            'js/arrow/init.js',
         ],
         js_vendor_files: [
             'bower_components/modernizr/modernizr.js',
             'bower_components/fastclick/lib/fastclick.js',
-            'bower_components/jquery/dist/jquery.js',
-            'bower_components/foundation/js/foundation.js',
-            'bower_components/greensock/src/uncompressed/TweenMax.js',
-            'bower_components/howler/howler.js',
+            'bower_components/jquery/dist/jquery.min.js',
+            'bower_components/foundation/js/foundation.min.js',
+            'bower_components/greensock/src/minified/TweenMax.min.js',
+            'bower_components/howler/howler.min.js',
             'bower_components/konami-js/konami.js',
         ],
         misc_dir: 'misc/',
@@ -44,7 +44,7 @@ module.exports = function(grunt) {
         },
 
         deploy: {
-            folder:                 '../deploy',
+            folder:                 '../../../../../demo',
         }
     };
 
@@ -312,8 +312,15 @@ module.exports = function(grunt) {
 
     // Default task(s)
     // ===================================
-    grunt.registerTask('default', ['build', 'watch']);
+    grunt.registerTask('default', ['deploy', 'watch']);
     // ----------------------------------------
+    grunt.registerTask('deploy', function() {
+        grunt.task.run([
+            'build',
+            'minify',
+        ]);
+    });
+
     grunt.registerTask('build', function() {
         grunt.task.run([
             // build css
@@ -331,7 +338,15 @@ module.exports = function(grunt) {
         ]);
     });
 
-    grunt.registerTask('deploy', function() {
+    grunt.registerTask('minify', function() {
+        grunt.task.run([
+            'cssmin',
+            'concat:deploy',
+            'uglify',
+        ]);
+    });
+
+    grunt.registerTask('export', function() {
 
         var target = grunt.option('target');
         if (target) {
@@ -342,11 +357,9 @@ module.exports = function(grunt) {
         }
 
         // build + output to a directory
-        // default: ../deploy
+        // default: ../../../demo
         grunt.task.run([
-            'build',
-            'cssmin',
-            'uglify',
+            'deploy',
             'copy',
         ]);
     });
