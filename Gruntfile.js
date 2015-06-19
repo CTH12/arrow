@@ -44,7 +44,7 @@ module.exports = function(grunt) {
         },
 
         deploy: {
-            folder:                 '../../../../../demo',
+            folder:                 '../../../../demo',
         }
     };
 
